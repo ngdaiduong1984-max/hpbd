@@ -57,10 +57,10 @@ window.CARD_CONFIG = {
 
   // Lời chúc chính (Cảnh 5)
   loiChuc:
-    "Chúc Linh Nhi tuổi 25 thật rực rỡ — công việc bùng nổ, tình cảm ngọt ngào " +
-    "và sức khoẻ luôn tràn đầy. Mong những nơi bạn muốn đi đều có dấu chân bạn, " +
-    "những điều bạn mong đều thành hiện thực, và tài khoản thì… cứ thế mà nhảy số. " +
-    "Mỗi ngày sắp tới, mong bạn luôn có lý do để mỉm cười và thốt lên: WOW!",
+    "Chúc Linh Nhi tuổi 25 thật rực rỡ — công việc suôn sẻ bùng nổ, tình cảm ngọt ngào " +
+    "và sức khoẻ luôn tràn đầy. Mong những nơi muốn đi đều có dấu chân Linh Nhi, " +
+    "những điều mong đều thành hiện thực, và tài khoản thì… cứ thế mà nhảy số hàng tỷ. " +
+    "Mỗi ngày sắp tới, mong Linh Nhi luôn có lý do để mỉm cười và thốt lên: WOW!",
 
   // Thông điệp sau khi thổi nến
   thongDiepSauThoiNen: "Điều ước đã được gửi tới vũ trụ ✨",
