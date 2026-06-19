@@ -67,20 +67,7 @@ window.CARD_CONFIG = {
 
   // Lời chúc kết thúc (Cảnh 8)
   loiChucCuoi:
-    "Chúc bạn tuổi 25 WOW hơn hôm qua, rực rỡ hơn hôm nay và tuyệt vời hơn mọi mong đợi!",
-
-  /* --- Thư tay (quà bí mật) --- */
-  tieuDeNutQua: "Mở thư tay",
-  thuTay:
-    "Gửi Linh Nhi,\n\n" +
-    "Sinh nhật tuổi 25 rồi đó! Chúc bạn một năm mới rực rỡ đúng nghĩa: " +
-    "công việc khởi sắc, tình cảm đong đầy, sức khoẻ dồi dào — và tất nhiên, " +
-    "tiền thì nhiều thật nhiều như bạn vẫn luôn mong. 😄\n\n" +
-    "Dù là cháy hết mình ở concert, tự tin nơi công sở xứ Hàn hay đứng giữa " +
-    "Ngọc Long Tuyết Sơn 4506m — phiên bản nào của bạn cũng thật đáng nể. " +
-    "Mong năm nay bạn đi được nhiều nơi hơn, cười nhiều hơn và sống thật trọn vẹn.\n\n" +
-    "Happy Birthday! 🎂",
-  kyTenThuTay: "— Nguyên Phong",
+    "Chúc Linh Nhi tuổi 25 WOW hơn hôm qua, rực rỡ hơn hôm nay và tuyệt vời hơn mọi mong đợi!",
 
   /* --- Hành vi --- */
   ghiNhoTienTrinh: false,   // true = nhớ tiến trình khi tải lại

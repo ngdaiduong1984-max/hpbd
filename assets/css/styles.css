@@ -173,18 +173,21 @@ body::after{
   filter:drop-shadow(0 0 24px rgba(255,209,102,.6)); }
 
 /* ===== Cảnh 7: cake + candle ===== */
-.cake{ position:relative; width:200px; height:150px; margin:0 auto; }
+.cake{ position:relative; width:230px; height:188px; margin:0 auto; }
 .cake-body{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:170px; height:78px; border-radius:14px 14px 12px 12px;
   background:linear-gradient(180deg,#ffd9ec,#ff9ed0 60%,#ff6fb5); box-shadow:0 14px 34px rgba(255,60,172,.4), inset 0 6px 0 rgba(255,255,255,.4); }
 .cake-body::before{ content:""; position:absolute; inset:0 0 auto 0; height:20px; border-radius:14px 14px 40% 40%; background:repeating-linear-gradient(90deg,#fff 0 10px,#ffe3f2 10px 20px); }
-.candle{ position:absolute; bottom:70px; width:9px; height:40px; border-radius:3px; background:linear-gradient(180deg,#fff6cf,#ffcae6);
-  box-shadow:0 0 0 1px rgba(0,0,0,.04); }
-.candle:nth-child(1){ left:62px; } .candle:nth-child(2){ left:50%; transform:translateX(-50%); } .candle:nth-child(3){ right:62px; }
+.candles-row{ position:absolute; bottom:72px; left:50%; transform:translateX(-50%); display:flex; gap:6px; align-items:flex-end; z-index:2; }
+.num-candle{ position:relative; }
+.num-candle .digit{ display:block; font-weight:900; font-size:68px; line-height:.85; letter-spacing:-2px;
+  background:linear-gradient(180deg,#fff3fa,#ff9ed0 55%,#ff5fae); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 3px 9px rgba(255,60,172,.55)); }
+.num-candle .flame{ top:-10px; }
 .flame{ position:absolute; top:-17px; left:50%; transform:translateX(-50%); width:13px; height:19px;
   background:radial-gradient(circle at 50% 65%, #fff 0%, var(--gold) 35%, #ff7b00 75%, transparent 80%);
   border-radius:50% 50% 50% 50%/60% 60% 40% 40%; filter:blur(.4px); transform-origin:bottom center; animation:flick .25s ease-in-out infinite alternate; }
 @keyframes flick{ from{ transform:translateX(-50%) scale(1) rotate(-3deg);} to{ transform:translateX(-52%) scale(1.08,1.14) rotate(3deg);} }
-.candle.out .flame{ display:none; }
+.num-candle.out .flame{ display:none; }
 #btn-blow{ position:relative; }
 .blow-fill{ position:absolute; inset:0; width:0%; background:rgba(255,255,255,.28); transition:width .1s linear; }
 .blow-label{ position:relative; z-index:1; }

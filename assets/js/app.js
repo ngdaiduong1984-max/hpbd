@@ -59,18 +59,13 @@
     // age
     $("#age-title").textContent = cfg.ageTitle || "";
     $("#age-quip").textContent = cfg.ageQuip || "";
-    // candle hint
-    $("#candle-hint").textContent = "Nhấn giữ để thổi " +
-      (cfg.danhSachAnh ? "" : "") + "nến và gửi điều ước vào vũ trụ ✨";
+    // candle hint + nến số tuổi
+    $("#candle-hint").textContent = "Nhấn giữ để thổi nến và gửi điều ước vào vũ trụ ✨";
+    buildCandles();
     // finale
     $("#finale-wish").textContent = cfg.loiChucCuoi || "";
     $("#finale-name-fallback").textContent = (cfg.tenNguoiNhan || "").toUpperCase();
     if (cfg.i18n && cfg.i18n.hbd) $("[data-i18n='hbd']").textContent = cfg.i18n.hbd;
-    // letter
-    $("#letter-body").textContent = cfg.thuTay || "";
-    $("#letter-sign").textContent = cfg.kyTenThuTay || "";
-    $("#gift-title").textContent = "💌 " + (cfg.tieuDeNutQua || "Thư tay");
-    $("#btn-gift").textContent = "💌 " + (cfg.tieuDeNutQua || "Mở thư tay");
   }
   function highlight(t) {
     var words = ["rực rỡ", "công việc", "tình cảm", "sức khoẻ", "sức khỏe", "WOW", "may mắn", "hiện thực"];
@@ -187,8 +182,19 @@
   }
 
   /* ===== Cảnh 7: thổi nến (nhấn giữ) ===== */
-  var blowBtn = $("#btn-blow"), blowFill = $("#blow-fill"), candles = $$(".candle");
+  var blowBtn = $("#btn-blow"), blowFill = $("#blow-fill"), candles = [];
   var holdTimer = null, holdStart = 0, blown = false;
+  function buildCandles() {
+    var row = $("#candles-row"); if (!row) return;
+    row.innerHTML = "";
+    String(cfg.tuoi != null ? cfg.tuoi : "").split("").forEach(function (d) {
+      var c = document.createElement("div"); c.className = "num-candle";
+      var fl = document.createElement("span"); fl.className = "flame";
+      var dg = document.createElement("span"); dg.className = "digit"; dg.textContent = d;
+      c.appendChild(fl); c.appendChild(dg); row.appendChild(c);
+    });
+    candles = $$(".num-candle");
+  }
   var HOLD_MS = 1500;
   function resetCandle() {
     blown = false; blowFill.style.width = "0%";
@@ -331,11 +337,6 @@
 
   /* ---------- nút data-next ---------- */
   $$("[data-next]").forEach(function (b) { b.addEventListener("click", function () { next(); }); });
-
-  /* ---------- modal thư tay ---------- */
-  $("#btn-gift").addEventListener("click", function () { $("#gift-modal").hidden = false; });
-  $("#gift-close").addEventListener("click", function () { $("#gift-modal").hidden = true; });
-  $("#gift-modal").addEventListener("click", function (e) { if (e.target === this) this.hidden = true; });
 
   /* ---------- replay / share ---------- */
   $("#btn-replay").addEventListener("click", function () {

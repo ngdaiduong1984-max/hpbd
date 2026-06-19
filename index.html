@@ -99,9 +99,7 @@
     <section class="scene" id="scene-candle" data-scene="candle">
       <div class="scene-inner">
         <div class="cake" id="cake" aria-hidden="true">
-          <div class="candle"><span class="flame"></span></div>
-          <div class="candle"><span class="flame"></span></div>
-          <div class="candle"><span class="flame"></span></div>
+          <div class="candles-row" id="candles-row"></div>
           <div class="cake-body"></div>
         </div>
         <p class="hint" id="candle-hint">Nhấn giữ để thổi nến và gửi điều ước vào vũ trụ ✨</p>
@@ -123,8 +121,7 @@
           <p class="finale-wish" id="finale-wish"></p>
           <div class="finale-actions">
             <button class="btn btn-ghost" id="btn-replay" type="button">↺ Xem lại</button>
-            <button class="btn btn-primary" id="btn-gift" type="button">💌 Mở thư tay</button>
-            <button class="btn btn-ghost" id="btn-share" type="button">↗ Chia sẻ</button>
+            <button class="btn btn-primary" id="btn-share" type="button">↗ Chia sẻ</button>
           </div>
           <p class="shake-hint" id="shake-hint">Chạm màn hình (hoặc lắc điện thoại) để bắn thêm pháo hoa 🎆</p>
         </div>
@@ -132,16 +129,6 @@
     </section>
 
   </main>
-
-  <!-- ===== Thư tay (modal quà bí mật) ===== -->
-  <div class="modal" id="gift-modal" hidden>
-    <div class="modal-card glass" role="dialog" aria-modal="true" aria-labelledby="gift-title">
-      <button class="modal-close" id="gift-close" aria-label="Đóng">×</button>
-      <h3 class="modal-title" id="gift-title">Thư tay gửi riêng cho bạn</h3>
-      <div class="letter" id="letter-body"></div>
-      <p class="letter-sign" id="letter-sign"></p>
-    </div>
-  </div>
 
   <!-- ===== Bảng điều khiển góc ===== -->
   <div class="hud">
