@@ -23,13 +23,13 @@ window.CARD_CONFIG = {
   mauVang: "#FFD166",           // vàng ánh kim (finale)
 
   /* --- Ảnh (xem assets/photos/README.md để thay ảnh thật) --- */
-  anhChanDung: "assets/photos/portrait.svg",   // dùng cho màn reveal (Cảnh 2)
+  anhChanDung: "assets/photos/IMG_5948.JPG",   // chân dung cành berry — reveal (Cảnh 2)
   danhSachAnh: [
-    { src: "assets/photos/mem-concert.svg", caption: "Cháy hết mình giữa biển ánh sáng 🎤" },
-    { src: "assets/photos/mem-work.svg",    caption: "Bản lĩnh nơi xứ Hàn — KPR Bright Bell 💼" },
-    { src: "assets/photos/mem-snow.svg",    caption: "Chinh phục Ngọc Long Tuyết Sơn 4506m ❄️" },
-    { src: "assets/photos/mem-sakura.svg",  caption: "Dịu dàng dưới mùa hoa anh đào 🌸" },
-    { src: "assets/photos/mem-berry.svg",   caption: "Rạng rỡ như những ngày đẹp nhất 🍒" }
+    { src: "assets/photos/IMG_5954.JPG", caption: "Cháy hết mình giữa biển ánh sáng 🎤" },
+    { src: "assets/photos/IMG_5953.JPG", caption: "Bản lĩnh nơi xứ Hàn — KPR Bright Bell 💼" },
+    { src: "assets/photos/IMG_5952.JPG", caption: "Chinh phục Ngọc Long Tuyết Sơn 4506m ❄️" },
+    { src: "assets/photos/IMG_5947.JPG", caption: "Dịu dàng dưới mùa hoa anh đào 🌸" },
+    { src: "assets/photos/IMG_5957.JPG", caption: "Nụ cười rạng rỡ, tự hào Việt Nam 🇻🇳" }
   ],
 
   /* --- Âm thanh --- */
