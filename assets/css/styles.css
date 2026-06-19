@@ -1,0 +1,252 @@
+/* =====================================================================
+ *  WOW! WOW! WOW! — Thiệp sinh nhật điện tử
+ *  Style: futuristic neon celebration · glassmorphism · pink-led
+ * ===================================================================== */
+
+:root{
+  --bg:        #070716;
+  --bg2:       #140A2E;
+  --pink:      #FF3CAC;   /* dẫn dắt */
+  --pink-soft: #FF6FB5;
+  --purple:    #8B5CF6;
+  --cyan:      #22D3EE;
+  --gold:      #FFD166;
+  --white:     #FFFFFF;
+  --ink:       #EAE6FF;
+  --grad: linear-gradient(120deg, var(--purple), var(--pink) 55%, var(--cyan));
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+}
+
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ margin:0; height:100%; }
+body{
+  font-family:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #1a1040 0%, var(--bg2) 38%, var(--bg) 78%);
+  color:var(--ink);
+  overflow:hidden;
+  position:fixed; inset:0;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* faint noise to avoid flatness */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+/* ===== Canvas layers ===== */
+.fx-canvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+#fx-canvas{ z-index:5; }
+
+/* ===== Stage / scenes ===== */
+.stage{ position:relative; z-index:3; height:100%; }
+.scene{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:calc(28px + var(--safe-t)) 22px calc(28px + var(--safe-b));
+  opacity:0; visibility:hidden;
+  transform:scale(1.04);
+  transition:opacity .6s ease, transform .7s cubic-bezier(.2,.8,.2,1), visibility 0s linear .6s;
+}
+.scene.active{
+  opacity:1; visibility:visible; transform:scale(1);
+  transition:opacity .7s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.scene-inner{
+  width:100%; max-width:520px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+}
+.scene-inner.wide{ max-width:560px; }
+.scene-scroll{ align-items:stretch; overflow-y:auto; }
+.scene-scroll .scene-inner{ margin:auto; }
+
+/* ===== Typography ===== */
+.eyebrow{ font-size:.92rem; letter-spacing:.12em; text-transform:uppercase; color:var(--cyan); margin:0; opacity:.9; }
+.label-gold{ font-weight:800; color:var(--gold); letter-spacing:.04em; margin:0; font-size:1.02rem; }
+.title{ font-weight:900; font-size:clamp(1.6rem,7vw,2.4rem); line-height:1.1; margin:0;
+  background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.title.gold{ background:linear-gradient(120deg,var(--gold),#fff7d6,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.sub{ margin:0; color:var(--ink); opacity:.92; font-size:1.02rem; line-height:1.5; max-width:30ch; }
+.hint{ margin:0; color:var(--ink); opacity:.9; font-size:1rem; max-width:26ch; }
+
+/* Hero name (largest text in product) */
+.hero-name{
+  font-weight:900; margin:.1em 0 0;
+  font-size:clamp(2.6rem,14vw,5rem); line-height:1; letter-spacing:.01em;
+  background:linear-gradient(110deg,#fff 0%,var(--pink-soft) 30%,var(--pink) 55%,var(--cyan) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 4px 26px rgba(255,60,172,.5));
+  animation:nameIn .9s cubic-bezier(.2,1.2,.3,1) both;
+}
+@keyframes nameIn{ from{ opacity:0; transform:translateY(18px) scale(.7); } to{ opacity:1; transform:none; } }
+
+/* ===== Buttons ===== */
+.btn{
+  font-family:inherit; font-weight:800; font-size:1.02rem; letter-spacing:.02em;
+  border:none; border-radius:999px; padding:15px 30px; cursor:pointer; color:#fff;
+  position:relative; overflow:hidden; min-height:52px;
+  transition:transform .15s ease, box-shadow .25s ease, opacity .2s; will-change:transform;
+}
+.btn:active{ transform:scale(.96); }
+.btn:disabled{ opacity:.5; pointer-events:none; }
+.btn-primary{
+  background:var(--grad); box-shadow:0 8px 30px rgba(255,60,172,.45), inset 0 0 0 1px rgba(255,255,255,.25);
+}
+.btn-primary:hover{ box-shadow:0 10px 40px rgba(255,60,172,.6), inset 0 0 0 1px rgba(255,255,255,.4); }
+.btn-ghost{
+  background:rgba(255,255,255,.06); color:var(--ink);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18); backdrop-filter:blur(8px);
+}
+.btn:focus-visible{ outline:3px solid var(--cyan); outline-offset:3px; }
+.pulse{ animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ box-shadow:0 8px 30px rgba(255,60,172,.45); transform:scale(1);} 50%{ box-shadow:0 12px 48px rgba(255,60,172,.75); transform:scale(1.035);} }
+.big-trigger{ font-size:1.15rem; padding:20px 40px; }
+.btn-ghost[data-next], #btn-wow-next{ align-self:center; }
+
+/* ===== Cảnh 1: radar + typing ===== */
+.radar{
+  width:150px; height:150px; border-radius:50%; position:relative; margin-bottom:6px;
+  background:radial-gradient(circle, rgba(34,211,238,.10), transparent 70%);
+  box-shadow:inset 0 0 0 1px rgba(34,211,238,.25), inset 0 0 40px rgba(34,211,238,.15);
+}
+.radar::before{ content:""; position:absolute; inset:25%; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(34,211,238,.2); }
+.radar-sweep{ position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(34,211,238,.55), transparent 28%); animation:spin 2.4s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.signal-line{ min-height:1.6em; font-size:1.12rem; color:var(--cyan); margin:0; font-weight:600; }
+.signal-line .caret{ display:inline-block; width:2px; height:1em; background:var(--cyan); margin-left:2px; vertical-align:-2px; animation:blink 1s steps(1) infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* ===== Cảnh 2: hologram ===== */
+.hologram{ position:relative; width:clamp(180px,52vw,230px); aspect-ratio:1; margin:6px 0; }
+.holo-photo{
+  position:absolute; inset:12%; width:76%; height:76%; object-fit:cover; border-radius:50%;
+  box-shadow:0 0 0 3px rgba(255,255,255,.18), 0 0 50px rgba(255,60,172,.5); background:var(--bg2);
+}
+.holo-rings i{ position:absolute; inset:0; border-radius:50%; border:1px solid rgba(34,211,238,.4); }
+.holo-rings i:nth-child(1){ animation:spin 8s linear infinite; }
+.holo-rings i:nth-child(2){ inset:-9%; border-color:rgba(255,60,172,.4); border-style:dashed; animation:spin 12s linear infinite reverse; }
+.holo-rings i:nth-child(3){ inset:7%; border-color:rgba(139,92,246,.5); animation:spin 6s linear infinite; }
+
+/* ===== Cảnh 3: mode ===== */
+.mode-state{ font-size:1.1rem; color:var(--cyan); margin:0; }
+.mode-state b{ color:var(--gold); }
+
+/* ===== Cảnh 4: WOW ===== */
+.wow-stage{ min-height:34vh; display:flex; flex-direction:column; justify-content:center; gap:14px; }
+.wow-word{
+  font-weight:900; font-size:clamp(3rem,20vw,7rem); line-height:.9; letter-spacing:.02em;
+  background:linear-gradient(110deg,var(--gold),#fff,var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 28px rgba(255,209,102,.55));
+}
+.wow-msg{ font-size:1.15rem; font-weight:700; color:#fff; margin:0; max-width:24ch; line-height:1.4; }
+.wow-word.show{ animation:wowPop .7s cubic-bezier(.2,1.4,.3,1) both; }
+@keyframes wowPop{ 0%{ opacity:0; transform:scale(.4) translateY(20px);} 60%{ transform:scale(1.12);} 100%{ opacity:1; transform:none; } }
+.wow-dots{ display:flex; gap:9px; }
+.wow-dots span{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.25); transition:.3s; }
+.wow-dots span.on{ background:var(--pink); box-shadow:0 0 12px var(--pink); }
+
+/* ===== Cảnh 5: gallery + wish ===== */
+.gallery{ display:flex; gap:12px; overflow-x:auto; padding:8px 2px 14px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+.gallery::-webkit-scrollbar{ height:0; }
+.polaroid{ flex:0 0 auto; width:150px; scroll-snap-align:center; background:#fff; padding:8px 8px 30px; border-radius:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5); transform:rotate(var(--r,-3deg)); transition:transform .3s; }
+.polaroid:nth-child(even){ --r:3deg; }
+.polaroid img{ width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:4px; display:block; background:var(--bg2); }
+.polaroid figcaption{ font-size:.72rem; color:#231a3a; margin-top:7px; line-height:1.25; font-weight:600; }
+.glass{ background:rgba(20,10,46,.55); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.14); border-radius:20px; }
+.wish-box{ padding:22px 20px; margin-top:6px; }
+.wish-text{ font-size:1.06rem; line-height:1.65; margin:0; color:#fff; }
+.wish-text .hl{ color:var(--pink-soft); font-weight:800; }
+.wish-from{ margin:14px 0 0; font-weight:700; color:var(--gold); }
+
+/* ===== Cảnh 6: age ===== */
+.age-ring{ width:clamp(150px,46vw,200px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; position:relative;
+  background:radial-gradient(circle, rgba(255,60,172,.12), transparent 70%);
+  box-shadow:inset 0 0 0 2px rgba(255,209,102,.4), 0 0 50px rgba(255,60,172,.35); }
+.age-ring::before{ content:""; position:absolute; inset:-6px; border-radius:50%; border:2px dashed rgba(34,211,238,.4); animation:spin 14s linear infinite; }
+.age-number{ font-weight:900; font-size:clamp(3.4rem,18vw,6rem); line-height:1;
+  background:linear-gradient(120deg,var(--gold),#fff7d6); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 24px rgba(255,209,102,.6)); }
+
+/* ===== Cảnh 7: cake + candle ===== */
+.cake{ position:relative; width:200px; height:150px; margin:0 auto; }
+.cake-body{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:170px; height:78px; border-radius:14px 14px 12px 12px;
+  background:linear-gradient(180deg,#ffd9ec,#ff9ed0 60%,#ff6fb5); box-shadow:0 14px 34px rgba(255,60,172,.4), inset 0 6px 0 rgba(255,255,255,.4); }
+.cake-body::before{ content:""; position:absolute; inset:0 0 auto 0; height:20px; border-radius:14px 14px 40% 40%; background:repeating-linear-gradient(90deg,#fff 0 10px,#ffe3f2 10px 20px); }
+.candle{ position:absolute; bottom:70px; width:9px; height:40px; border-radius:3px; background:linear-gradient(180deg,#fff6cf,#ffcae6);
+  box-shadow:0 0 0 1px rgba(0,0,0,.04); }
+.candle:nth-child(1){ left:62px; } .candle:nth-child(2){ left:50%; transform:translateX(-50%); } .candle:nth-child(3){ right:62px; }
+.flame{ position:absolute; top:-17px; left:50%; transform:translateX(-50%); width:13px; height:19px;
+  background:radial-gradient(circle at 50% 65%, #fff 0%, var(--gold) 35%, #ff7b00 75%, transparent 80%);
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%; filter:blur(.4px); transform-origin:bottom center; animation:flick .25s ease-in-out infinite alternate; }
+@keyframes flick{ from{ transform:translateX(-50%) scale(1) rotate(-3deg);} to{ transform:translateX(-52%) scale(1.08,1.14) rotate(3deg);} }
+.candle.out .flame{ display:none; }
+#btn-blow{ position:relative; }
+.blow-fill{ position:absolute; inset:0; width:0%; background:rgba(255,255,255,.28); transition:width .1s linear; }
+.blow-label{ position:relative; z-index:1; }
+
+/* ===== Cảnh 8: finale ===== */
+.countdown{ font-weight:900; font-size:clamp(5rem,30vw,11rem); line-height:1;
+  background:linear-gradient(120deg,#fff,var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.countdown.tick{ animation:cdTick .9s ease both; }
+@keyframes cdTick{ 0%{ opacity:0; transform:scale(2.2);} 30%{ opacity:1; transform:scale(1);} 80%{ opacity:1;} 100%{ opacity:0; transform:scale(.6);} }
+.finale-content{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.hbd{ font-weight:900; letter-spacing:.06em; font-size:clamp(1.6rem,8vw,2.6rem); margin:0;
+  background:linear-gradient(110deg,var(--gold),#fff,var(--pink-soft)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 24px rgba(255,209,102,.5)); }
+.name-canvas{ width:min(92vw,520px); height:140px; }
+.finale-name-fallback{ display:none; font-weight:900; font-size:clamp(2.4rem,13vw,4.4rem); margin:0;
+  background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.finale-wish{ font-size:1.05rem; line-height:1.5; margin:4px 0 0; max-width:28ch; color:#fff; }
+.finale-actions{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+.finale-actions .btn{ font-size:.95rem; padding:13px 20px; min-height:46px; }
+.shake-hint{ font-size:.85rem; opacity:.7; margin:6px 0 0; }
+
+/* ===== Modal thư tay ===== */
+.modal{ position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:20px;
+  background:rgba(7,7,22,.7); backdrop-filter:blur(6px); animation:fadeIn .3s ease; }
+@keyframes fadeIn{ from{ opacity:0;} to{ opacity:1; } }
+.modal[hidden]{ display:none; }
+.modal-card{ width:100%; max-width:440px; padding:26px 24px; position:relative; max-height:86vh; overflow-y:auto; animation:cardIn .4s cubic-bezier(.2,1,.3,1) both; }
+@keyframes cardIn{ from{ opacity:0; transform:translateY(20px) scale(.96);} to{ opacity:1; transform:none; } }
+.modal-close{ position:absolute; top:10px; right:14px; background:none; border:none; color:var(--ink); font-size:1.8rem; line-height:1; cursor:pointer; }
+.modal-title{ margin:0 0 14px; color:var(--gold); font-size:1.25rem; }
+.letter{ white-space:pre-wrap; line-height:1.7; color:#fff; font-size:1.02rem; }
+.letter-sign{ text-align:right; margin:16px 0 0; font-weight:700; color:var(--pink-soft); }
+
+/* ===== HUD ===== */
+.hud{ position:fixed; top:calc(12px + var(--safe-t)); right:12px; z-index:20; display:flex; gap:8px; }
+.hud-btn{ font-family:inherit; font-size:.85rem; font-weight:700; color:var(--ink);
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); border-radius:999px;
+  padding:8px 13px; cursor:pointer; backdrop-filter:blur(8px); min-height:38px; }
+.hud-btn:focus-visible{ outline:3px solid var(--cyan); outline-offset:2px; }
+.ico-audio-on{ display:none; }
+body[data-audio="on"] .ico-audio-on{ display:inline; }
+body[data-audio="on"] .ico-audio-off{ display:none; }
+body[data-state="finale"] #btn-skip,
+body[data-state="intro"] #btn-skip{ }
+
+/* ===== Photo rain (finale) ===== */
+.photo-rain{ position:fixed; inset:0; z-index:6; pointer-events:none; overflow:hidden; }
+.photo-rain img{ position:absolute; width:84px; height:108px; object-fit:cover; border-radius:8px; border:3px solid #fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.5); opacity:0; will-change:transform; }
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.15s !important; }
+  .radar-sweep, .holo-rings i, .age-ring::before{ animation:none !important; }
+}
+body[data-reduced="1"] .radar-sweep,
+body[data-reduced="1"] .holo-rings i,
+body[data-reduced="1"] .flame,
+body[data-reduced="1"] .pulse{ animation:none !important; }
+
+/* ===== Desktop ===== */
+@media (min-width:768px){
+  .scene-inner{ max-width:560px; }
+  .polaroid{ width:172px; }
+}

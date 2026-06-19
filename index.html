@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#070716" />
+  <title>WOW! WOW! WOW! — Thiệp sinh nhật Linh Nhi</title>
+  <meta name="description" content="Một tín hiệu đặc biệt từ vũ trụ, gửi đến đúng người đặc biệt nhất hôm nay." />
+
+  <!-- Fonts: Be Vietnam Pro (heading + body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-state="intro">
+
+  <!-- ===== Canvas layers (decoration, độc lập với nội dung) ===== -->
+  <canvas id="bg-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+  <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===== Stage: chứa 8 phân cảnh ===== -->
+  <main id="stage" class="stage">
+
+    <!-- Cảnh 1 — Màn hình tín hiệu bí mật -->
+    <section class="scene" id="scene-intro" data-scene="intro">
+      <div class="scene-inner">
+        <div class="radar" aria-hidden="true"><span class="radar-sweep"></span></div>
+        <p class="signal-line" data-typing></p>
+        <button class="btn btn-primary pulse" id="btn-open-signal" type="button">MỞ TÍN HIỆU BÍ MẬT</button>
+      </div>
+    </section>
+
+    <!-- Cảnh 2 — Công bố nhân vật chính -->
+    <section class="scene" id="scene-reveal" data-scene="reveal">
+      <div class="scene-inner">
+        <p class="eyebrow" data-i18n="reveal_pre">Hệ thống đã tìm thấy…</p>
+        <p class="label-gold" data-i18n="reveal_label">NHÂN VẬT QUAN TRỌNG NHẤT HÔM NAY</p>
+        <div class="hologram">
+          <div class="holo-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img class="holo-photo" id="holo-photo" alt="Ảnh người nhận" />
+        </div>
+        <h1 class="hero-name" id="hero-name"></h1>
+        <p class="sub" data-i18n="reveal_sub">Hôm nay là ngày cả vũ trụ phải ăn mừng!</p>
+        <button class="btn btn-ghost" data-next type="button">Tiếp tục →</button>
+      </div>
+    </section>
+
+    <!-- Cảnh 3 — Kích hoạt Birthday Mode -->
+    <section class="scene" id="scene-mode" data-scene="mode">
+      <div class="scene-inner">
+        <h2 class="title" data-i18n="mode_title">KÍCH HOẠT<br />CHẾ ĐỘ SINH NHẬT</h2>
+        <button class="btn btn-primary big-trigger" id="btn-birthday-mode" type="button">
+          <span class="bt-label">BẬT BIRTHDAY MODE</span>
+        </button>
+        <p class="mode-state" id="mode-state" hidden>Birthday Mode: <b>ON</b></p>
+      </div>
+    </section>
+
+    <!-- Cảnh 4 — Ba khoảnh khắc WOW -->
+    <section class="scene" id="scene-wow" data-scene="wow">
+      <div class="scene-inner">
+        <div class="wow-stage">
+          <div class="wow-word" id="wow-word">WOW!</div>
+          <p class="wow-msg" id="wow-msg"></p>
+        </div>
+        <div class="wow-dots" id="wow-dots" aria-hidden="true"></div>
+        <button class="btn btn-ghost" id="btn-wow-next" type="button">Tiếp →</button>
+      </div>
+    </section>
+
+    <!-- Cảnh 5 — Lời chúc cá nhân hóa + gallery -->
+    <section class="scene scene-scroll" id="scene-wish" data-scene="wish">
+      <div class="scene-inner wide">
+        <div class="gallery" id="gallery" aria-label="Album kỷ niệm"></div>
+        <div class="wish-box glass">
+          <p class="wish-text" id="wish-text"></p>
+          <p class="wish-from" id="wish-from"></p>
+        </div>
+        <button class="btn btn-ghost" data-next type="button">Tiếp tục →</button>
+      </div>
+    </section>
+
+    <!-- Cảnh 6 — Khoe tuổi tự hào -->
+    <section class="scene" id="scene-age" data-scene="age">
+      <div class="scene-inner">
+        <p class="eyebrow" id="age-pre">Hệ thống đang tính cấp độ rực rỡ…</p>
+        <div class="age-ring">
+          <div class="age-number" id="age-number">0</div>
+        </div>
+        <h2 class="title gold" id="age-title"></h2>
+        <p class="sub" id="age-quip"></p>
+        <button class="btn btn-ghost" data-next type="button">Tiếp tục →</button>
+      </div>
+    </section>
+
+    <!-- Cảnh 7 — Thổi nến -->
+    <section class="scene" id="scene-candle" data-scene="candle">
+      <div class="scene-inner">
+        <div class="cake" id="cake" aria-hidden="true">
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+          <div class="cake-body"></div>
+        </div>
+        <p class="hint" id="candle-hint">Nhấn giữ để thổi nến và gửi điều ước vào vũ trụ ✨</p>
+        <button class="btn btn-primary" id="btn-blow" type="button">
+          <span class="blow-fill" id="blow-fill"></span>
+          <span class="blow-label">NHẤN GIỮ ĐỂ THỔI NẾN</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Cảnh 8 — Đại tiệc kết thúc -->
+    <section class="scene" id="scene-finale" data-scene="finale">
+      <div class="scene-inner">
+        <div class="countdown" id="countdown" aria-hidden="true"></div>
+        <div class="finale-content" id="finale-content" hidden>
+          <p class="hbd" data-i18n="hbd">HAPPY BIRTHDAY</p>
+          <canvas id="name-canvas" class="name-canvas" aria-label="Tên người nhận"></canvas>
+          <p class="finale-name-fallback" id="finale-name-fallback"></p>
+          <p class="finale-wish" id="finale-wish"></p>
+          <div class="finale-actions">
+            <button class="btn btn-ghost" id="btn-replay" type="button">↺ Xem lại</button>
+            <button class="btn btn-primary" id="btn-gift" type="button">💌 Mở thư tay</button>
+            <button class="btn btn-ghost" id="btn-share" type="button">↗ Chia sẻ</button>
+          </div>
+          <p class="shake-hint" id="shake-hint">Chạm màn hình (hoặc lắc điện thoại) để bắn thêm pháo hoa 🎆</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Thư tay (modal quà bí mật) ===== -->
+  <div class="modal" id="gift-modal" hidden>
+    <div class="modal-card glass" role="dialog" aria-modal="true" aria-labelledby="gift-title">
+      <button class="modal-close" id="gift-close" aria-label="Đóng">×</button>
+      <h3 class="modal-title" id="gift-title">Thư tay gửi riêng cho bạn</h3>
+      <div class="letter" id="letter-body"></div>
+      <p class="letter-sign" id="letter-sign"></p>
+    </div>
+  </div>
+
+  <!-- ===== Bảng điều khiển góc ===== -->
+  <div class="hud">
+    <button class="hud-btn" id="btn-audio" aria-pressed="false" title="Bật/tắt âm thanh">
+      <span class="ico-audio-off">🔇</span><span class="ico-audio-on">🔊</span>
+    </button>
+    <button class="hud-btn" id="btn-skip" title="Bỏ qua phần mở đầu">Bỏ qua ⏭</button>
+  </div>
+
+  <!-- ===== Confetti DOM layer cho photo-rain ===== -->
+  <div class="photo-rain" id="photo-rain" aria-hidden="true"></div>
+
+  <!-- ===== Scripts ===== -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/effects.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
